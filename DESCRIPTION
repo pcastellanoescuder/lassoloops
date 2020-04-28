@@ -1,16 +1,24 @@
 Package: lassoloops
-Title: What the Package Does (One Line, Title Case)
+Title: R Package to Combine Standard Lasso Regression with Bootstrap and Leave-One-Out
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
+    person(given = "Pol",
            family = "Castellano-Escuder",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+           email = "polcaes@gmail.com",
+           comment = c(ORCID = "0000-0001-6466-877X"))
+Description: To do
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Imports:
+    doParallel,
+    foreach,
+    glmnet,
+    tictoc
+Suggests: 
+    covr,
+    testthat
+Depends: R (>= 3.2.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0

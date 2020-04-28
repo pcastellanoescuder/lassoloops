@@ -1,2 +1,9 @@
 ^lassoloops\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
+^appveyor\.yml$
+^README\.Rmd$
+^\.travis\.yml$
+^codecov\.yml$
+^\.github$
+^CODE_OF_CONDUCT\.md$
