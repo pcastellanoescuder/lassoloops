@@ -1,14 +1,13 @@
 
-#' Bootstrap Validation for Quantitative `glmnet::cv.glmnet` Function
+#' Bootstrap Validation for Cox `glmnet::cv.glmnet` Function
 #'
 #' @description
 #'
 #' @param x x matrix as in glmnet.
-#' @param y Response variable. Should be numeric a vector.
+#' @param y Should be a two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating death, and '0' indicating right censored. The function Surv() in package survival produces such a matrix.
 #' @param loops Number of resamplings (a `glmnet::cv.glmnet` model will be created at each resampling).
 #' @param alpha The elasticnet mixing parameter, with 0 ≤ alpha ≤ 1. alpha = 1 is the lasso penalty, and alpha = 0 the ridge penalty.
 #' @param nfolds number of folds - default is 10. Although nfolds can be as large as the sample size (leave-one-out CV), it is not recommended for large datasets. Smallest value allowable is nfolds=3.
-#' @param family Response type. Quantitative for family = "gaussian" or family = "poisson" (non-negative counts).
 #' @param seed `set.seed()` that will be used.
 #' @param ncores Number of cores. Each loop will run in one core using the `foreach` package.
 #'
@@ -22,14 +21,13 @@
 #' @importFrom doParallel registerDoParallel
 #' @importFrom foreach foreach %dopar%
 #' @importFrom glmnet cv.glmnet
-blasso <- function(x,
-                   y,
-                   loops = 2,
-                   alpha = 1,
-                   nfolds = 10,
-                   family = "gaussian",
-                   seed = 987654321,
-                   ncores = 2){
+cox_blasso <- function(x,
+                       y,
+                       loops = 2,
+                       alpha = 1,
+                       nfolds = 10,
+                       seed = 987654321,
+                       ncores = 2){
 
   tictoc::tic()
 
@@ -39,11 +37,15 @@ blasso <- function(x,
   varx <- colnames(x)
   rowx <- nrow(x)
   nvar <- ncol(x)
-  n <- length(y)
+  n <- nrow(y)
   res <- vector("list", loops)
 
+  if(ncol(y) != 2){
+    stop("y must be a matrix with two columns (time and status)")
+  }
+
   if(rowx != n){
-    stop("The number of rows in x is not equal to the length of y!")
+    stop("The number of rows in x is not equal to the number of rows in y!")
   }
 
   res <- foreach::foreach(i = 1:loops) %dopar% {
@@ -60,25 +62,24 @@ blasso <- function(x,
     idx_test <- sample(1:(n/3), replace = FALSE)
 
     test <- new_matrix[idx_test ,]
-    test_x <- test[,-1]
-    test_y <- test[,1]
+    test_x <- test[,-c(1:2)]
+    test_y <- test[,1:2]
 
     ## TRAIN
 
     train <- new_matrix[-idx_test ,]
-    train_x <- train[,-1]
-    train_y <- train[,1]
+    train_x <- train[,-c(1:2)]
+    train_y <- train[,1:2]
 
     ## LASSO
 
-    cv_fit <- glmnet::cv.glmnet(as.matrix(train_x), train_y, alpha = alpha, family = family, nfolds = nfolds, parallel = TRUE)
+    cv_fit <- glmnet::cv.glmnet(as.matrix(train_x), train_y, alpha = alpha, family = "cox", nfolds = nfolds, parallel = TRUE)
 
     tmp_coeffs <- coef(cv_fit, s = "lambda.min")
     final_coef <- data.frame(name = tmp_coeffs@Dimnames[[1]][tmp_coeffs@i + 1], coefficient = tmp_coeffs@x)
 
-    lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = as.matrix(test_x))
-    mse <- mean((test_y - lasso_pred)^2)
-    res[i] <- list(coeffs = final_coef, mse = mse)
+    lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = as.matrix(test_x), type = "response") # hazards
+    res[i] <- list(coeffs = final_coef)
 
   }
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Title — blasso • lassoloops</title>
+<title>Bootstrap Validation for Quantitative <code>glmnet::cv.glmnet</code> Function — blasso • lassoloops</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Title — blasso" />
+<meta property="og:title" content="Bootstrap Validation for Quantitative <code>glmnet::cv.glmnet</code> Function — blasso" />
 <meta property="og:description" content="
 
 " />
@@ -105,7 +105,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Title</h1>
+    <h1>Bootstrap Validation for Quantitative <code>glmnet::cv.glmnet</code> Function</h1>
     
     <div class="hidden name"><code>blasso.Rd</code></div>
     </div>
@@ -120,9 +120,9 @@
   <span class='no'>x</span>,
   <span class='no'>y</span>,
   <span class='kw'>loops</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>nfolds</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
-  <span class='kw'>lambda</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>987654321</span>,
   <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>2</span>
 )</pre>
@@ -131,21 +131,45 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>x</th>
+      <td><p>x matrix as in glmnet.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>Response variable. Should be numeric a vector.</p></td>
+    </tr>
+    <tr>
+      <th>loops</th>
+      <td><p>Number of resamplings (a <code><a href='https://rdrr.io/pkg/glmnet/man/cv.glmnet.html'>glmnet::cv.glmnet</a></code> model will be created at each resampling).</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>The elasticnet mixing parameter, with 0 ≤ alpha ≤ 1. alpha = 1 is the lasso penalty, and alpha = 0 the ridge penalty.</p></td>
+    </tr>
+    <tr>
+      <th>nfolds</th>
+      <td><p>number of folds - default is 10. Although nfolds can be as large as the sample size (leave-one-out CV), it is not recommended for large datasets. Smallest value allowable is nfolds=3.</p></td>
+    </tr>
+    <tr>
+      <th>family</th>
+      <td><p>Response type. Quantitative for family = "gaussian" or family = "poisson" (non-negative counts).</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p><code><a href='https://rdrr.io/r/base/Random.html'>set.seed()</a></code> that will be used.</p></td>
+    </tr>
+    <tr>
       <th>ncores</th>
-      <td></td>
+      <td><p>Number of cores. Each loop will run in one core using the <code>foreach</code> package.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-
-
+    <p>A list with the results.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    
-
-
+    <p>Jerome Friedman, Trevor Hastie, Robert Tibshirani (2010). Regularization Paths for Generalized Linear Models via Coordinate Descent. Journal of Statistical Software, 33(1), 1-22. URL http://www.jstatsoft.org/v33/i01/.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -158,7 +182,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Pol Castellano-Escuder.</p>
+  <p>Developed by Pol Castellano-Escuder, Francisco Carmona-Pontaque, Alex Sánchez-Pla.</p>
 </div>
 
 <div class="pkgdown">
