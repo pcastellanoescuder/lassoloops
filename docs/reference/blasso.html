@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bootstrap Validation for Quantitative <code>glmnet::cv.glmnet</code> Function — blasso • lassoloops</title>
+<title>Bootstrap Validation for Quantitative Lasso Regression — blasso • lassoloops</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Bootstrap Validation for Quantitative <code>glmnet::cv.glmnet</code> Function — blasso" />
+<meta property="og:title" content="Bootstrap Validation for Quantitative Lasso Regression — blasso" />
 <meta property="og:description" content="
 
 " />
@@ -105,7 +105,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Bootstrap Validation for Quantitative <code>glmnet::cv.glmnet</code> Function</h1>
+    <h1>Bootstrap Validation for Quantitative Lasso Regression</h1>
     
     <div class="hidden name"><code>blasso.Rd</code></div>
     </div>
@@ -120,6 +120,7 @@
   <span class='no'>x</span>,
   <span class='no'>y</span>,
   <span class='kw'>loops</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>nfolds</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
@@ -140,7 +141,11 @@
     </tr>
     <tr>
       <th>loops</th>
-      <td><p>Number of resamplings (a <code><a href='https://rdrr.io/pkg/glmnet/man/cv.glmnet.html'>glmnet::cv.glmnet</a></code> model will be created at each resampling).</p></td>
+      <td><p>Number of loops (a <code><a href='https://rdrr.io/pkg/glmnet/man/cv.glmnet.html'>glmnet::cv.glmnet</a></code> model will be performed in each loop).</p></td>
+    </tr>
+    <tr>
+      <th>bootstrap</th>
+      <td><p>Logical indicating if bootstrap will be performed or not.</p></td>
     </tr>
     <tr>
       <th>alpha</th>

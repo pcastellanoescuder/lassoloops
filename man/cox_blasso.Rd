@@ -2,12 +2,13 @@
 % Please edit documentation in R/cox_blasso.R
 \name{cox_blasso}
 \alias{cox_blasso}
-\title{Bootstrap Validation for Cox \code{glmnet::cv.glmnet} Function}
+\title{Bootstrap Validation for Cox Lasso Regression}
 \usage{
 cox_blasso(
   x,
   y,
   loops = 2,
+  bootstrap = TRUE,
   alpha = 1,
   nfolds = 10,
   seed = 987654321,
@@ -17,9 +18,11 @@ cox_blasso(
 \arguments{
 \item{x}{x matrix as in glmnet.}
 
-\item{y}{Should be a two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating death, and '0' indicating right censored. The function Surv() in package survival produces such a matrix.}
+\item{y}{Should be a two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating death, and '0' indicating right censored.}
 
-\item{loops}{Number of resamplings (a \code{glmnet::cv.glmnet} model will be created at each resampling).}
+\item{loops}{Number of loops (a \code{glmnet::cv.glmnet} model will be performed in each loop).}
+
+\item{bootstrap}{Logical indicating if bootstrap will be performed or not.}
 
 \item{alpha}{The elasticnet mixing parameter, with 0 ≤ alpha ≤ 1. alpha = 1 is the lasso penalty, and alpha = 0 the ridge penalty.}
 
@@ -39,5 +42,5 @@ A list with the results.
 Jerome Friedman, Trevor Hastie, Robert Tibshirani (2010). Regularization Paths for Generalized Linear Models via Coordinate Descent. Journal of Statistical Software, 33(1), 1-22. URL http://www.jstatsoft.org/v33/i01/.
 }
 \author{
-Pol Castellano-Escuder
+Pol Castellano-Escuder and Guillermo Villacampa
 }

@@ -1,11 +1,12 @@
 
-#' Bootstrap Validation for Quantitative `glmnet::cv.glmnet` Function
+#' Bootstrap Validation for Quantitative Lasso Regression
 #'
 #' @description
 #'
 #' @param x x matrix as in glmnet.
 #' @param y Response variable. Should be numeric a vector.
-#' @param loops Number of resamplings (a `glmnet::cv.glmnet` model will be created at each resampling).
+#' @param loops Number of loops (a `glmnet::cv.glmnet` model will be performed in each loop).
+#' @param bootstrap Logical indicating if bootstrap will be performed or not.
 #' @param alpha The elasticnet mixing parameter, with 0 ≤ alpha ≤ 1. alpha = 1 is the lasso penalty, and alpha = 0 the ridge penalty.
 #' @param nfolds number of folds - default is 10. Although nfolds can be as large as the sample size (leave-one-out CV), it is not recommended for large datasets. Smallest value allowable is nfolds=3.
 #' @param family Response type. Quantitative for family = "gaussian" or family = "poisson" (non-negative counts).
@@ -25,6 +26,7 @@
 blasso <- function(x,
                    y,
                    loops = 2,
+                   bootstrap = TRUE,
                    alpha = 1,
                    nfolds = 10,
                    family = "gaussian",
@@ -50,10 +52,18 @@ blasso <- function(x,
 
     ## BOOTSTRAP
 
-    idx <- sample(1:n, replace = T)
+    if(isTRUE(bootstrap)){
 
-    new_matrix <- cbind(y, x)
-    new_matrix <- new_matrix[idx ,]
+      idx <- sample(1:n, replace = T)
+
+      new_matrix <- cbind(y, x)
+      new_matrix <- new_matrix[idx ,]
+
+    } else{
+
+      new_matrix <- cbind(y, x)
+
+    }
 
     ## TEST
 
@@ -82,7 +92,18 @@ blasso <- function(x,
 
   }
 
+  res <- new("LassoLoop",
+             bootstraped = bootstrap,
+             coefficients = purrr::map(res, 1),
+             family = family,
+             valiadationMetric = "Mean Square Error",
+             valiadationValues = purrr::map(res, 2),
+             length = length(res))
+
   tictoc::toc()
+
+  if(validObject(res))
+    return(res)
 
   return(res)
 }

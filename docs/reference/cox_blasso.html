@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bootstrap Validation for Cox <code>glmnet::cv.glmnet</code> Function — cox_blasso • lassoloops</title>
+<title>Bootstrap Validation for Cox Lasso Regression — cox_blasso • lassoloops</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Bootstrap Validation for Cox <code>glmnet::cv.glmnet</code> Function — cox_blasso" />
+<meta property="og:title" content="Bootstrap Validation for Cox Lasso Regression — cox_blasso" />
 <meta property="og:description" content="
 
 " />
@@ -105,7 +105,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Bootstrap Validation for Cox <code>glmnet::cv.glmnet</code> Function</h1>
+    <h1>Bootstrap Validation for Cox Lasso Regression</h1>
     
     <div class="hidden name"><code>cox_blasso.Rd</code></div>
     </div>
@@ -120,6 +120,7 @@
   <span class='no'>x</span>,
   <span class='no'>y</span>,
   <span class='kw'>loops</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>nfolds</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>987654321</span>,
@@ -135,11 +136,15 @@
     </tr>
     <tr>
       <th>y</th>
-      <td><p>Should be a two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating death, and '0' indicating right censored. The function Surv() in package survival produces such a matrix.</p></td>
+      <td><p>Should be a two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating death, and '0' indicating right censored.</p></td>
     </tr>
     <tr>
       <th>loops</th>
-      <td><p>Number of resamplings (a <code><a href='https://rdrr.io/pkg/glmnet/man/cv.glmnet.html'>glmnet::cv.glmnet</a></code> model will be created at each resampling).</p></td>
+      <td><p>Number of loops (a <code><a href='https://rdrr.io/pkg/glmnet/man/cv.glmnet.html'>glmnet::cv.glmnet</a></code> model will be performed in each loop).</p></td>
+    </tr>
+    <tr>
+      <th>bootstrap</th>
+      <td><p>Logical indicating if bootstrap will be performed or not.</p></td>
     </tr>
     <tr>
       <th>alpha</th>

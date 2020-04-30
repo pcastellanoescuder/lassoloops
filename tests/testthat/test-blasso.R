@@ -8,6 +8,6 @@ test_that("blasso works", {
 
   res_blasso <- blasso(x, y)
 
-  expect_true(class(res_blasso) == "list")
+  expect_true(class(res_blasso) == "LassoLoop")
 
   })
