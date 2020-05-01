@@ -1,17 +1,17 @@
 
-#' Title
+#' β's Heatmap
 #'
-#' @description
+#' @description Classical heatmap made with the beta values of each model in the "LassoLoop" object. This plot shows in a fast and intuitive way the direction of coefficients for each variable. Each heatmap row denotes one LassoLoop model and each column denotes one selected variable.
 #'
 #' @param object A LassoLoop object.
-#' @param scale f
-#' @param scale_by f
-#' @param low f
-#' @param high f
+#' @param scale Logical indicating if the resultant heatmap will be scaled or not. Default is TRUE.
+#' @param scale_by Character that indicates for which variable the resultant heatmap will be scaled. Options are "model" and "variable".
+#' @param low Colour for the low end of the gradient. Lower beta values will be represented with this value.
+#' @param high Colour for the high end of the gradient. Highest beta values will be represented with this value.
 #'
 #' @export
 #'
-#' @return
+#' @return A ggplot2 object.
 #' @author Pol Castellano-Escuder
 #'
 #' @import ggplot2
@@ -19,11 +19,11 @@
 #' @importFrom dplyr mutate select group_by
 #' @importFrom tibble column_to_rownames rownames_to_column
 #' @importFrom tidyr pivot_longer
-coeff_heatmap <- function(object,
-                          scale = TRUE,
-                          scale_by = "model",
-                          low = "steelblue",
-                          high = "orange"){
+beta_heatmap <- function(object,
+                         scale = TRUE,
+                         scale_by = "model",
+                         low = "steelblue",
+                         high = "orange"){
 
   if(!isTRUE(class(object) == "LassoLoop")){
     stop("Input should be a LassoLoop object")

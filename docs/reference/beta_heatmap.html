@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bootstrap Validation for Binomial Lasso Regression — binom_blasso • lassoloops</title>
+<title>β's Heatmap — beta_heatmap • lassoloops</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Bootstrap Validation for Binomial Lasso Regression — binom_blasso" />
-<meta property="og:description" content="This function performs n glmnet::cv.glmnet(family = &quot;binomial&quot;) models using bootstrap validation and splitting the input data in train and test at each loop." />
+<meta property="og:title" content="β's Heatmap — beta_heatmap" />
+<meta property="og:description" content="Classical heatmap made with the beta values of each model in the &quot;LassoLoop&quot; object. This plot shows in a fast and intuitive way the direction of coefficients for each variable. Each heatmap row denotes one LassoLoop model and each column denotes one selected variable." />
 
 
 
@@ -103,69 +103,51 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Bootstrap Validation for Binomial Lasso Regression</h1>
+    <h1>β's Heatmap</h1>
     
-    <div class="hidden name"><code>binom_blasso.Rd</code></div>
+    <div class="hidden name"><code>beta_heatmap.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function performs n <code><a href='https://rdrr.io/pkg/glmnet/man/cv.glmnet.html'>glmnet::cv.glmnet(family = "binomial")</a></code> models using bootstrap validation and splitting the input data in train and test at each loop.</p>
+    <p>Classical heatmap made with the beta values of each model in the "LassoLoop" object. This plot shows in a fast and intuitive way the direction of coefficients for each variable. Each heatmap row denotes one LassoLoop model and each column denotes one selected variable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>binom_blasso</span>(
-  <span class='no'>x</span>,
-  <span class='no'>y</span>,
-  <span class='kw'>loops</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>nfolds</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>987654321</span>,
-  <span class='kw'>ncores</span> <span class='kw'>=</span> <span class='fl'>2</span>
+    <pre class="usage"><span class='fu'>beta_heatmap</span>(
+  <span class='no'>object</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>scale_by</span> <span class='kw'>=</span> <span class='st'>"model"</span>,
+  <span class='kw'>low</span> <span class='kw'>=</span> <span class='st'>"steelblue"</span>,
+  <span class='kw'>high</span> <span class='kw'>=</span> <span class='st'>"orange"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>x matrix as in glmnet.</p></td>
+      <th>object</th>
+      <td><p>A LassoLoop object.</p></td>
     </tr>
     <tr>
-      <th>y</th>
-      <td><p>Should be either a factor with two levels.</p></td>
+      <th>scale</th>
+      <td><p>Logical indicating if the resultant heatmap will be scaled or not. Default is TRUE.</p></td>
     </tr>
     <tr>
-      <th>loops</th>
-      <td><p>Number of loops (a <code><a href='https://rdrr.io/pkg/glmnet/man/cv.glmnet.html'>glmnet::cv.glmnet</a></code> model will be performed in each loop).</p></td>
+      <th>scale_by</th>
+      <td><p>Character that indicates for which variable the resultant heatmap will be scaled. Options are "model" and "variable".</p></td>
     </tr>
     <tr>
-      <th>bootstrap</th>
-      <td><p>Logical indicating if bootstrap will be performed or not.</p></td>
+      <th>low</th>
+      <td><p>Colour for the low end of the gradient. Lower beta values will be represented with this value.</p></td>
     </tr>
     <tr>
-      <th>alpha</th>
-      <td><p>The elasticnet mixing parameter, with 0 ≤ alpha ≤ 1. alpha = 1 is the lasso penalty, and alpha = 0 the ridge penalty.</p></td>
-    </tr>
-    <tr>
-      <th>nfolds</th>
-      <td><p>number of folds - default is 10. Although nfolds can be as large as the sample size (leave-one-out CV), it is not recommended for large datasets. Smallest value allowable is nfolds=3.</p></td>
-    </tr>
-    <tr>
-      <th>seed</th>
-      <td><p><code><a href='https://rdrr.io/r/base/Random.html'>set.seed()</a></code> that will be used.</p></td>
-    </tr>
-    <tr>
-      <th>ncores</th>
-      <td><p>Number of cores. Each loop will run in one core using the <code>foreach</code> package.</p></td>
+      <th>high</th>
+      <td><p>Colour for the high end of the gradient. Highest beta values will be represented with this value.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A LassoLoop object with the results.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Jerome Friedman, Trevor Hastie, Robert Tibshirani (2010). Regularization Paths for Generalized Linear Models via Coordinate Descent. Journal of Statistical Software, 33(1), 1-22. URL http://www.jstatsoft.org/v33/i01/.</p>
+    <p>A ggplot2 object.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

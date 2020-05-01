@@ -17,8 +17,7 @@ coverage](https://codecov.io/gh/pcastellanoescuder/lassoloops/branch/master/grap
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
-R Package to Combine Standard Lasso Regression with Bootstrap and
-Leave-One-Out
+R package to perform a bootstrap validation in lasso regression models
 
 ## Installation
 

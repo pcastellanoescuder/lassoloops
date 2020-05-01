@@ -1,13 +1,13 @@
 
-#' Title
+#' Select the Best Model
 #'
-#' @description
+#' @description This function selects the best model among all loops according the best validation metric result.
 #'
 #' @param object A LassoLoop object.
 #'
 #' @export
 #'
-#' @return
+#' @return A list with the best model and its metrics.
 #' @author Pol Castellano-Escuder
 #'
 #' @importFrom magrittr %>%
@@ -24,8 +24,9 @@ pick_best <- function(object){
 
     accuracy <- purrr::map(object@valiadationValues, 1) %>% which.max()
     Accuracy <- object@valiadationValues[[accuracy]]
-    model <- object@coefficients[[accuracy]]
-    return(list(model = model, accuracy = Accuracy))
+    coefficients <- object@coefficients[[accuracy]]
+    model <- object@model[[accuracy]]
+    return(list(model = model, coefficients = coefficients, accuracy = Accuracy))
 
   }
 
@@ -33,8 +34,9 @@ pick_best <- function(object){
 
     cindex <- purrr::map(object@valiadationValues, 1) %>% which.max()
     Cindex <- object@valiadationValues[[cindex]]
-    model <- object@coefficients[[cindex]]
-    return(list(model = model, cindex = Cindex))
+    coefficients <- object@coefficients[[cindex]]
+    model <- object@model[[cindex]]
+    return(list(model = model, coefficients = coefficients, cindex = Cindex))
 
   }
 
@@ -42,8 +44,9 @@ pick_best <- function(object){
 
     mse <- which.min(object@valiadationValues)
     MeanSquareError <- object@valiadationValues[[mse]]
-    model <- object@coefficients[[mse]]
-    return(list(model = model, mse = MeanSquareError))
+    coefficients <- object@coefficients[[mse]]
+    model <- object@model[[mse]]
+    return(list(model = model, coefficients = coefficients, mse = MeanSquareError))
 
   }
 

@@ -1,7 +1,7 @@
 
 #' Bootstrap Validation for Binomial Lasso Regression
 #'
-#' @description
+#' @description This function performs n `glmnet::cv.glmnet(family = "binomial")` models using bootstrap validation and splitting the input data in train and test at each loop.
 #'
 #' @param x x matrix as in glmnet.
 #' @param y Should be either a factor with two levels.
@@ -14,7 +14,7 @@
 #'
 #' @export
 #'
-#' @return A list with the results.
+#' @return A LassoLoop object with the results.
 #' @references Jerome Friedman, Trevor Hastie, Robert Tibshirani (2010). Regularization Paths for Generalized Linear Models via Coordinate Descent. Journal of Statistical Software, 33(1), 1-22. URL http://www.jstatsoft.org/v33/i01/.
 #' @author Pol Castellano-Escuder
 #'
@@ -91,11 +91,12 @@ binom_blasso <- function(x,
     cm <- caret::confusionMatrix(as.factor(lasso_pred), as.factor(test_y))
     overall <- cm$overall
 
-    res[i] <- list(coeffs = final_coef, accuracy = overall, confusionMatrix = cm$table)
+    res[i] <- list(coeffs = final_coef, accuracy = overall, confusionMatrix = cm$table, model = cv_fit)
 
   }
 
   res <- new("LassoLoop",
+             model = purrr::map(res, 4),
              bootstraped = bootstrap,
              coefficients = purrr::map(res, 1),
              family = "binomial",

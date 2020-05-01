@@ -1,13 +1,13 @@
 
-#' Title
+#' Summary of All Models
 #'
-#' @description
+#' @description This function summarize the information of all models computed and creates some basic plots and tables to explore them.
 #'
 #' @param object A LassoLoop object.
 #'
 #' @export
 #'
-#' @return
+#' @return A list with different summary plots and tables.
 #' @author Pol Castellano-Escuder
 #'
 #' @import ggplot2

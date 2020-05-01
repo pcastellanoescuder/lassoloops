@@ -1,7 +1,7 @@
 
 #' Bootstrap Validation for Cox Lasso Regression
 #'
-#' @description
+#' @description This function performs n `glmnet::cv.glmnet(family = "cox")` models using bootstrap validation and splitting the input data in train and test at each loop.
 #'
 #' @param x x matrix as in glmnet.
 #' @param y Should be a two-column matrix with columns named 'time' and 'status'. The latter is a binary variable, with '1' indicating death, and '0' indicating right censored.
@@ -14,9 +14,9 @@
 #'
 #' @export
 #'
-#' @return A list with the results.
+#' @return A LassoLoop object with the results.
 #' @references Jerome Friedman, Trevor Hastie, Robert Tibshirani (2010). Regularization Paths for Generalized Linear Models via Coordinate Descent. Journal of Statistical Software, 33(1), 1-22. URL http://www.jstatsoft.org/v33/i01/.
-#' @author Pol Castellano-Escuder and Guillermo Villacampa
+#' @author Pol Castellano-Escuder
 #'
 #' @importFrom tictoc tic toc
 #' @importFrom doParallel registerDoParallel
@@ -95,11 +95,12 @@ cox_blasso <- function(x,
     cindex <- survcomp::concordance.index(lasso_pred, surv.time = test_y[,1], surv.event = test_y[,2], method = "noether")
     cindex <- list(c = cindex$c.index, se = cindex$se, lower = cindex$lower, upper = cindex$upper, pvalue = cindex$p.value)
 
-    res[i] <- list(coeffs = final_coef, cindex = cindex)
+    res[i] <- list(coeffs = final_coef, cindex = cindex, model = cv_fit)
 
   }
 
   res <- new("LassoLoop",
+             model = purrr::map(res, 3),
              bootstraped = bootstrap,
              coefficients = purrr::map(res, 1),
              family = "cox",

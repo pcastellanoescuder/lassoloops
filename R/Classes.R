@@ -1,6 +1,7 @@
 
 setClass("LassoLoop",
          representation(
+           model = "list",
            bootstraped = "logical",
            coefficients = "list",
            family = "character",
@@ -10,6 +11,7 @@ setClass("LassoLoop",
            length = "numeric",
            lassoloopsVersion = "character"),
          prototype(
+           model = list(),
            bootstraped = logical(),
            coefficients = list(),
            family = character(),

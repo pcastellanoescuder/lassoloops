@@ -2,7 +2,7 @@
 % Please edit documentation in R/pick_best.R
 \name{pick_best}
 \alias{pick_best}
-\title{Title}
+\title{Select the Best Model}
 \usage{
 pick_best(object)
 }
@@ -10,10 +10,10 @@ pick_best(object)
 \item{object}{A LassoLoop object.}
 }
 \value{
-
+A list with the best model and its metrics.
 }
 \description{
-
+This function selects the best model among all loops according the best validation metric result.
 }
 \author{
 Pol Castellano-Escuder

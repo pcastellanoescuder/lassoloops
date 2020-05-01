@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_models.R
 \name{summary_models}
 \alias{summary_models}
-\title{Title}
+\title{Summary of All Models}
 \usage{
 summary_models(object)
 }
@@ -10,10 +10,10 @@ summary_models(object)
 \item{object}{A LassoLoop object.}
 }
 \value{
-
+A list with different summary plots and tables.
 }
 \description{
-
+This function summarize the information of all models computed and creates some basic plots and tables to explore them.
 }
 \author{
 Pol Castellano-Escuder

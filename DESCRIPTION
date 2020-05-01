@@ -1,5 +1,5 @@
 Package: lassoloops
-Title: Bootstrap Validation for glmnet R Package
+Title: Bootstrap Validation for Lasso Regression Models
 Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Pol",
@@ -15,13 +15,11 @@ Authors@R:
            family = "Sánchez-Pla",
            role = "aut",
            email = "asanchez@ub.edu"))
-Description: To do
+Description: This package allows users to compute n `glmnet` models using bootstrap and train/test split cross validation at each model.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Depends: 
-    R (>= 3.2.0),
-    glmnet (>= 3.0.2)
+biocViews:
 Imports:
     caret,
     clisymbols,
@@ -30,12 +28,16 @@ Imports:
     dplyr,
     foreach,
     ggplot2,
+    magrittr,
     methods,
     purrr,
     survcomp,
     tibble,
     tidyr,
     tictoc
+Depends: 
+    R (>= 3.2.0),
+    glmnet (>= 3.0.2)
 Suggests: 
     covr,
     testthat

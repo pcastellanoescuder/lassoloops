@@ -1,7 +1,8 @@
 
 ##################################################################
-## Methods for LassoLoopObject class
-setMethod("initialize", "LassoLoop",
+## Methods for LassoLoop class
+setMethod("initialize",
+          "LassoLoop",
           function(.Object, ...) {
             .Object <- callNextMethod(.Object, ...)
             .Object@lassoloopsVersion <-

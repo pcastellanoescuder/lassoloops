@@ -33,14 +33,14 @@ cox_blasso(
 \item{ncores}{Number of cores. Each loop will run in one core using the \code{foreach} package.}
 }
 \value{
-A list with the results.
+A LassoLoop object with the results.
 }
 \description{
-
+This function performs n \code{glmnet::cv.glmnet(family = "cox")} models using bootstrap validation and splitting the input data in train and test at each loop.
 }
 \references{
 Jerome Friedman, Trevor Hastie, Robert Tibshirani (2010). Regularization Paths for Generalized Linear Models via Coordinate Descent. Journal of Statistical Software, 33(1), 1-22. URL http://www.jstatsoft.org/v33/i01/.
 }
 \author{
-Pol Castellano-Escuder and Guillermo Villacampa
+Pol Castellano-Escuder
 }

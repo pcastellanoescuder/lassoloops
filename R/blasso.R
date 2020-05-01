@@ -1,7 +1,7 @@
 
 #' Bootstrap Validation for Quantitative Lasso Regression
 #'
-#' @description
+#' @description This function performs n `glmnet::cv.glmnet(family = c("gaussian", "poisson"))` models using bootstrap validation and splitting the input data in train and test at each loop.
 #'
 #' @param x x matrix as in glmnet.
 #' @param y Response variable. Should be numeric a vector.
@@ -15,7 +15,7 @@
 #'
 #' @export
 #'
-#' @return A list with the results.
+#' @return A LassoLoop object with the results.
 #' @references Jerome Friedman, Trevor Hastie, Robert Tibshirani (2010). Regularization Paths for Generalized Linear Models via Coordinate Descent. Journal of Statistical Software, 33(1), 1-22. URL http://www.jstatsoft.org/v33/i01/.
 #' @author Pol Castellano-Escuder
 #'
@@ -88,11 +88,12 @@ blasso <- function(x,
 
     lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = as.matrix(test_x))
     mse <- mean((test_y - lasso_pred)^2)
-    res[i] <- list(coeffs = final_coef, mse = mse)
+    res[i] <- list(coeffs = final_coef, mse = mse, model = cv_fit)
 
   }
 
   res <- new("LassoLoop",
+             model = purrr::map(res, 3),
              bootstraped = bootstrap,
              coefficients = purrr::map(res, 1),
              family = family,
