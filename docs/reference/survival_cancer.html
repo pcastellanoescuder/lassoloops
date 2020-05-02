@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • lassoloops</title>
+<title>NCCTG Lung Cancer Data from survival R package — survival_cancer • lassoloops</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="NCCTG Lung Cancer Data from survival R package — survival_cancer" />
+<meta property="og:description" content="Survival in patients with advanced lung cancer from the North Central Cancer Treatment Group.
+Performance scores rate how well the patient can perform usual daily activities." />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -100,78 +102,42 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>NCCTG Lung Cancer Data from survival R package</h1>
+    
+    <div class="hidden name"><code>survival_cancer.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Survival in patients with advanced lung cancer from the North Central Cancer Treatment Group.
+Performance scores rate how well the patient can perform usual daily activities.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='no'>survival_cancer</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="beta_heatmap.html">beta_heatmap()</a></code> </p>
-        </td>
-        <td><p>β's Heatmap</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="binom_blasso.html">binom_blasso()</a></code> </p>
-        </td>
-        <td><p>Bootstrap Validation for Binomial Lasso Regression</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="blasso.html">blasso()</a></code> </p>
-        </td>
-        <td><p>Bootstrap Validation for Quantitative Lasso Regression</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="cox_blasso.html">cox_blasso()</a></code> </p>
-        </td>
-        <td><p>Bootstrap Validation for Cox Lasso Regression</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pick_best.html">pick_best()</a></code> </p>
-        </td>
-        <td><p>Select the Best Model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="summary_models.html">summary_models()</a></code> </p>
-        </td>
-        <td><p>Summary of All Models</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="survival_cancer.html">survival_cancer</a></code> </p>
-        </td>
-        <td><p>NCCTG Lung Cancer Data from survival R package</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>This file has been copied from survival R package. See <code><a href='https://rdrr.io/pkg/survival/man/lung.html'>survival::cancer</a></code>.</p><dl'>
+<dt>inst</dt><dd><p>Institution code</p></dd>
+<dt>time</dt><dd><p>Survival time in days</p></dd>
+<dt>status</dt><dd><p>censoring status 1=censored, 2=dead</p></dd>
+<dt>age</dt><dd><p>Age in years</p></dd>
+<dt>sex</dt><dd><p>Male=1 Female=2</p></dd>
+<dt>ph.ecog</dt><dd><p>ECOG performance score as rated by the physician. 0=asymptomatic, 1= symptomatic but completely ambulatory, 2= in bed &lt;50% of the day, 3= in bed &gt; 50% of the day but not bedbound, 4 = bedbound</p></dd>
+<dt>ph.karno</dt><dd><p>Karnofsky performance score (bad=0-good=100) rated by physician</p></dd>
+<dt>pat.karno</dt><dd><p>Karnofsky performance score as rated by patient</p></dd>
+<dt>meal.cal</dt><dd><p>Calories consumed at meals</p></dd>
+<dt>wt.loss:</dt><dd><p>Weight loss in last six months</p></dd>
+
+</dl>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Loprinzi CL. Laurie JA. Wieand HS. Krook JE. Novotny PJ. Kugler JW. Bartel J. Law M. Bateman M. Klatt NE. et al. Prospective evaluation of prognostic variables from patient-completed questionnaires. North Central Cancer Treatment Group. Journal of Clinical Oncology. 12(3):601-7, 1994.</p>
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
