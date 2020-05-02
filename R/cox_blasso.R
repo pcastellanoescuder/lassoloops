@@ -71,7 +71,7 @@ cox_blasso <- function(x,
 
     ## TEST
 
-    idx_test <- sample(1:(n/3), replace = FALSE)
+    idx_test <- sample(1:n, 0.2*n, replace = FALSE)
 
     test <- new_matrix[idx_test ,]
     test_x <- test[,-c(1:2)]
@@ -85,12 +85,12 @@ cox_blasso <- function(x,
 
     ## LASSO
 
-    cv_fit <- glmnet::cv.glmnet(as.matrix(train_x), as.matrix(train_y), alpha = alpha, family = "cox", nfolds = nfolds, parallel = TRUE)
+    cv_fit <- glmnet::cv.glmnet(data.matrix(train_x), data.matrix(train_y), alpha = alpha, family = "cox", nfolds = nfolds, parallel = TRUE)
 
     tmp_coeffs <- coef(cv_fit, s = "lambda.min")
     final_coef <- data.frame(name = tmp_coeffs@Dimnames[[1]][tmp_coeffs@i + 1], coefficient = tmp_coeffs@x)
 
-    lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = as.matrix(test_x), type = "response") # hazards
+    lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = data.matrix(test_x), type = "response") # hazards
 
     cindex <- survcomp::concordance.index(lasso_pred, surv.time = test_y[,1], surv.event = test_y[,2], method = "noether")
     cindex <- list(c = cindex$c.index, se = cindex$se, lower = cindex$lower, upper = cindex$upper, pvalue = cindex$p.value)

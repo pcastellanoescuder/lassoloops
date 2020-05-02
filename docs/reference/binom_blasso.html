@@ -117,6 +117,9 @@
   <span class='no'>y</span>,
   <span class='kw'>loops</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>smote</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>perc_over</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>perc_under</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>nfolds</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>987654321</span>,
@@ -132,7 +135,7 @@
     </tr>
     <tr>
       <th>y</th>
-      <td><p>Should be either a factor with two levels.</p></td>
+      <td><p>Should be either a numeric factor with two levels.</p></td>
     </tr>
     <tr>
       <th>loops</th>
@@ -141,6 +144,18 @@
     <tr>
       <th>bootstrap</th>
       <td><p>Logical indicating if bootstrap will be performed or not.</p></td>
+    </tr>
+    <tr>
+      <th>smote</th>
+      <td><p>Logical. If it's set to TRUE, the Synthetic Minority Over-sampling Technique will be used to reduce random oversampling. See <code><a href='https://rdrr.io/pkg/performanceEstimation/man/smote.html'>performanceEstimation::smote</a></code> function.</p></td>
+    </tr>
+    <tr>
+      <th>perc_over</th>
+      <td><p>If smote parameter is TRUE. A number that drives the decision of how many extra cases from the minority class are generated (known as over-sampling).</p></td>
+    </tr>
+    <tr>
+      <th>perc_under</th>
+      <td><p>If smote parameter is TRUE. A number that drives the decision of how many extra cases from the majority classes are selected for each case generated from the minority class (known as under-sampling).</p></td>
     </tr>
     <tr>
       <th>alpha</th>

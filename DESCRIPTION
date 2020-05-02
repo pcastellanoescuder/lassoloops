@@ -30,6 +30,7 @@ Imports:
     ggplot2,
     magrittr,
     methods,
+    performanceEstimation,
     purrr,
     survcomp,
     tibble,

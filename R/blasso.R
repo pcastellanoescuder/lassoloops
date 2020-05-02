@@ -67,7 +67,7 @@ blasso <- function(x,
 
     ## TEST
 
-    idx_test <- sample(1:(n/3), replace = FALSE)
+    idx_test <- sample(1:n, 0.2*n, replace = FALSE)
 
     test <- new_matrix[idx_test ,]
     test_x <- test[,-1]
@@ -81,12 +81,12 @@ blasso <- function(x,
 
     ## LASSO
 
-    cv_fit <- glmnet::cv.glmnet(as.matrix(train_x), train_y, alpha = alpha, family = family, nfolds = nfolds, parallel = TRUE)
+    cv_fit <- glmnet::cv.glmnet(data.matrix(train_x), as.matrix(train_y), alpha = alpha, family = family, nfolds = nfolds, parallel = TRUE)
 
     tmp_coeffs <- coef(cv_fit, s = "lambda.min")
     final_coef <- data.frame(name = tmp_coeffs@Dimnames[[1]][tmp_coeffs@i + 1], coefficient = tmp_coeffs@x)
 
-    lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = as.matrix(test_x))
+    lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = data.matrix(test_x))
     mse <- mean((test_y - lasso_pred)^2)
     res[i] <- list(coeffs = final_coef, mse = mse, model = cv_fit)
 

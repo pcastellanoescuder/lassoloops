@@ -9,6 +9,9 @@ binom_blasso(
   y,
   loops = 2,
   bootstrap = TRUE,
+  smote = FALSE,
+  perc_over = 2,
+  perc_under = 2,
   alpha = 1,
   nfolds = 10,
   seed = 987654321,
@@ -18,11 +21,17 @@ binom_blasso(
 \arguments{
 \item{x}{x matrix as in glmnet.}
 
-\item{y}{Should be either a factor with two levels.}
+\item{y}{Should be either a numeric factor with two levels.}
 
 \item{loops}{Number of loops (a \code{glmnet::cv.glmnet} model will be performed in each loop).}
 
 \item{bootstrap}{Logical indicating if bootstrap will be performed or not.}
+
+\item{smote}{Logical. If it's set to TRUE, the Synthetic Minority Over-sampling Technique will be used to reduce random oversampling. See \code{performanceEstimation::smote} function.}
+
+\item{perc_over}{If smote parameter is TRUE. A number that drives the decision of how many extra cases from the minority class are generated (known as over-sampling).}
+
+\item{perc_under}{If smote parameter is TRUE. A number that drives the decision of how many extra cases from the majority classes are selected for each case generated from the minority class (known as under-sampling).}
 
 \item{alpha}{The elasticnet mixing parameter, with 0 ≤ alpha ≤ 1. alpha = 1 is the lasso penalty, and alpha = 0 the ridge penalty.}
 
