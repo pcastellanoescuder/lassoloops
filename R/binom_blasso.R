@@ -70,7 +70,7 @@ binom_blasso <- function(x,
 
   ## LOOP
 
-  res <- foreach::foreach(i = 1:loops) %dopar% {
+  foreach::foreach(i = 1:loops) %dopar% {
 
     ## BOOTSTRAP
 
@@ -113,7 +113,7 @@ binom_blasso <- function(x,
     cm <- caret::confusionMatrix(as.factor(lasso_pred), as.factor(test_y))
     overall <- cm$overall
 
-    res[i] <- list(coeffs = final_coef, accuracy = overall, confusionMatrix = cm$table, model = cv_fit)
+    res[[i]] <- list(coeffs = final_coef, accuracy = overall, confusionMatrix = cm$table, model = cv_fit)
 
   }
 

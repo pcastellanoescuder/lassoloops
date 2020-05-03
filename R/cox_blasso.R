@@ -52,7 +52,7 @@ cox_blasso <- function(x,
     stop("The number of rows in x is not equal to the number of rows in y!")
   }
 
-  res <- foreach::foreach(i = 1:loops) %dopar% {
+  foreach::foreach(i = 1:loops) %dopar% {
 
     ## BOOTSTRAP
 
@@ -95,7 +95,7 @@ cox_blasso <- function(x,
     cindex <- survcomp::concordance.index(lasso_pred, surv.time = test_y[,1], surv.event = test_y[,2], method = "noether")
     cindex <- list(c = cindex$c.index, se = cindex$se, lower = cindex$lower, upper = cindex$upper, pvalue = cindex$p.value)
 
-    res[i] <- list(coeffs = final_coef, cindex = cindex, model = cv_fit)
+    res[[i]] <- list(coeffs = final_coef, cindex = cindex, model = cv_fit)
 
   }
 

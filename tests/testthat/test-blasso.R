@@ -2,6 +2,8 @@ context("blasso")
 
 test_that("blasso works", {
 
+  data("mtcars")
+
   x <- mtcars[,1:6]
   y <- mtcars$qsec
 

@@ -2,6 +2,8 @@ context("binom_blasso")
 
 test_that("binom_blasso works", {
 
+  data("mtcars")
+
   x <- mtcars[,1:7]
   y <- mtcars$vs
 

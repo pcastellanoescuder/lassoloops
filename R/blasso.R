@@ -48,7 +48,7 @@ blasso <- function(x,
     stop("The number of rows in x is not equal to the length of y!")
   }
 
-  res <- foreach::foreach(i = 1:loops) %dopar% {
+  foreach::foreach(i = 1:loops) %dopar% {
 
     ## BOOTSTRAP
 
@@ -88,7 +88,7 @@ blasso <- function(x,
 
     lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = data.matrix(test_x))
     mse <- mean((test_y - lasso_pred)^2)
-    res[i] <- list(coeffs = final_coef, mse = mse, model = cv_fit)
+    res[[i]] <- list(coeffs = final_coef, mse = mse, model = cv_fit)
 
   }
 
