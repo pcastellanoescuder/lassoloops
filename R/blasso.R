@@ -48,7 +48,7 @@ blasso <- function(x,
     stop("The number of rows in x is not equal to the length of y!")
   }
 
-  foreach::foreach(i = 1:loops) %dopar% {
+  res <- foreach::foreach(i = 1:loops) %dopar% {
 
     ## BOOTSTRAP
 
@@ -81,7 +81,7 @@ blasso <- function(x,
 
     ## LASSO
 
-    cv_fit <- glmnet::cv.glmnet(data.matrix(train_x), as.matrix(train_y), alpha = alpha, family = family, nfolds = nfolds, parallel = TRUE)
+    cv_fit <- glmnet::cv.glmnet(data.matrix(train_x), as.matrix(train_y), alpha = alpha, family = family, nfolds = nfolds)
 
     tmp_coeffs <- coef(cv_fit, s = "lambda.min")
     final_coef <- data.frame(name = tmp_coeffs@Dimnames[[1]][tmp_coeffs@i + 1], coefficient = tmp_coeffs@x)
