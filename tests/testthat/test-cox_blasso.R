@@ -2,6 +2,8 @@ context("cox_blasso")
 
 test_that("cox_blasso works", {
 
+  Sys.unsetenv("R_TESTS")
+
   data("survival_cancer")
 
   x <- survival_cancer[,4:10]

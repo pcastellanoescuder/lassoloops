@@ -2,6 +2,8 @@ context("blasso")
 
 test_that("blasso works", {
 
+  Sys.unsetenv("R_TESTS")
+
   data("mtcars")
 
   x <- mtcars[,1:6]
