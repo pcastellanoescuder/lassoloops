@@ -26,7 +26,8 @@ pick_best <- function(object){
     Accuracy <- object@valiadationValues[[accuracy]]
     coefficients <- object@coefficients[[accuracy]]
     model <- object@model[[accuracy]]
-    return(list(model = model, coefficients = coefficients, accuracy = Accuracy))
+    random_vars <- object@randomVariables[[accuracy]]
+    return(list(model = model, coefficients = coefficients, accuracy = Accuracy, random_vars = random_vars))
 
   }
 
