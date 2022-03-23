@@ -5,10 +5,6 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Travis build
-status](https://travis-ci.com/pcastellanoescuder/lassoloops.svg?branch=master)](https://travis-ci.com/pcastellanoescuder/lassoloops)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/pcastellanoescuder/lassoloops?branch=master&svg=true)](https://ci.appveyor.com/project/pcastellanoescuder/lassoloops)
 [![R build
 status](https://github.com/pcastellanoescuder/lassoloops/workflows/R-CMD-check/badge.svg)](https://github.com/pcastellanoescuder/lassoloops/actions)
 [![Codecov test

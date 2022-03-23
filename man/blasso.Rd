@@ -11,6 +11,7 @@ blasso(
   bootstrap = TRUE,
   alpha = 1,
   nfolds = 10,
+  offset = NULL,
   family = "gaussian",
   seed = 987654321,
   ncores = 2
@@ -27,7 +28,9 @@ blasso(
 
 \item{alpha}{The elasticnet mixing parameter, with 0 ≤ alpha ≤ 1. alpha = 1 is the lasso penalty, and alpha = 0 the ridge penalty.}
 
-\item{nfolds}{number of folds - default is 10. Although nfolds can be as large as the sample size (leave-one-out CV), it is not recommended for large datasets. Smallest value allowable is nfolds=3.}
+\item{nfolds}{Number of folds - default is 10. Although nfolds can be as large as the sample size (leave-one-out CV), it is not recommended for large datasets. Smallest value allowable is nfolds=3.}
+
+\item{offset}{A vector of length \code{nobs} that is included in the linear predictor. See \code{?glmnet::glmnet()}}
 
 \item{family}{Response type. Quantitative for family = "gaussian" or family = "poisson" (non-negative counts).}
 

@@ -1,20 +1,13 @@
 Package: lassoloops
 Title: Bootstrap Validation for Lasso Regression Models
-Version: 0.0.0.9000
+Version: 0.1.0.9000
 Authors@R: 
     c(person(given = "Pol",
            family = "Castellano-Escuder",
            role = c("aut", "cre"),
            email = "polcaes@gmail.com",
-           comment = c(ORCID = "0000-0001-6466-877X")),
-    person(given = "Francisco",
-           family = "Carmona-Pontaque",
-           role = "aut",
-           email = "fcarmona@ub.edu"),
-    person(given = "Alex",
-           family = "Sánchez-Pla",
-           role = "aut",
-           email = "asanchez@ub.edu"))
+           comment = c(ORCID = "0000-0001-6466-877X"))
+           )
 Description: This package allows users to compute n `glmnet` models using bootstrap and train/test split cross validation at each model.
 License: GPL-3
 Encoding: UTF-8
@@ -43,5 +36,4 @@ Suggests:
     covr,
     testthat
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
-
+RoxygenNote: 7.1.2

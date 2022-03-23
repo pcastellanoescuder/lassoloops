@@ -8,7 +8,8 @@
 #' @param loops Number of loops (a `glmnet::cv.glmnet` model will be performed in each loop).
 #' @param bootstrap Logical indicating if bootstrap will be performed or not.
 #' @param alpha The elasticnet mixing parameter, with 0 ≤ alpha ≤ 1. alpha = 1 is the lasso penalty, and alpha = 0 the ridge penalty.
-#' @param nfolds number of folds - default is 10. Although nfolds can be as large as the sample size (leave-one-out CV), it is not recommended for large datasets. Smallest value allowable is nfolds=3.
+#' @param nfolds Number of folds - default is 10. Although nfolds can be as large as the sample size (leave-one-out CV), it is not recommended for large datasets. Smallest value allowable is nfolds=3.
+#' @param offset A vector of length `nobs` that is included in the linear predictor. See `?glmnet::glmnet()`
 #' @param family Response type. Quantitative for family = "gaussian" or family = "poisson" (non-negative counts).
 #' @param seed `set.seed()` that will be used.
 #' @param ncores Number of cores. Each loop will run in one core using the `foreach` package.
@@ -29,6 +30,7 @@ blasso <- function(x,
                    bootstrap = TRUE,
                    alpha = 1,
                    nfolds = 10,
+                   offset = NULL,
                    family = "gaussian",
                    seed = 987654321,
                    ncores = 2){
@@ -52,7 +54,7 @@ blasso <- function(x,
 
     ## BOOTSTRAP
 
-    if(isTRUE(bootstrap)){
+    if(bootstrap){
 
       idx <- sample(1:n, replace = T)
 
@@ -80,13 +82,22 @@ blasso <- function(x,
     train_y <- train[,1]
 
     ## LASSO
-
-    cv_fit <- glmnet::cv.glmnet(data.matrix(train_x), as.matrix(train_y), alpha = alpha, family = family, nfolds = nfolds)
+    suppressWarnings(
+      cv_fit <- glmnet::cv.glmnet(data.matrix(train_x), as.matrix(train_y), alpha = alpha,
+                                  family = family, nfolds = nfolds,
+                                  offset = offset)
+    )
 
     tmp_coeffs <- coef(cv_fit, s = "lambda.min")
     final_coef <- data.frame(name = tmp_coeffs@Dimnames[[1]][tmp_coeffs@i + 1], coefficient = tmp_coeffs@x)
 
-    lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = data.matrix(test_x))
+    if(!is.null(offset)) {
+      lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = data.matrix(test_x), newoffset = offset)
+    }
+    else {
+      lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = data.matrix(test_x))
+    }
+
     mse <- mean((test_y - lasso_pred)^2)
     res[[i]] <- list(coeffs = final_coef, mse = mse, model = cv_fit)
 
