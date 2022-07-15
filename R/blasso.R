@@ -95,11 +95,13 @@ blasso <- function(x,
     tmp_coeffs <- coef(cv_fit, s = "lambda.min")
     final_coef <- data.frame(name = tmp_coeffs@Dimnames[[1]][tmp_coeffs@i + 1], coefficient = tmp_coeffs@x)
 
-    if(!is.null(offset)) {
-      lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = data.matrix(test_x), newoffset = offset)
-    }
-    else {
-      lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = data.matrix(test_x))
+    if(!is.null(ntest)){
+      if(!is.null(offset)) {
+        lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = data.matrix(test_x), newoffset = offset)
+      }
+      else {
+        lasso_pred <- predict(cv_fit, s = cv_fit$lambda.min, newx = data.matrix(test_x))
+      }
     }
 
     if(!is.null(ntest)){
