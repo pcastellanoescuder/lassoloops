@@ -13,6 +13,7 @@ blasso(
   nfolds = 10,
   offset = NULL,
   family = "gaussian",
+  ntest = NULL,
   seed = 987654321,
   ncores = 2
 )
@@ -33,6 +34,8 @@ blasso(
 \item{offset}{A vector of length \code{nobs} that is included in the linear predictor. See \code{?glmnet::glmnet()}}
 
 \item{family}{Response type. Quantitative for family = "gaussian" or family = "poisson" (non-negative counts).}
+
+\item{ntest}{Numeric indicating the percentage of observations that will be used as test set. Default is NULL (no test set).}
 
 \item{seed}{\code{set.seed()} that will be used.}
 
