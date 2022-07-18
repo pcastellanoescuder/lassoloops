@@ -33,7 +33,8 @@ summary_models <- function(object){
   ## COMMON COEFFICIENTS
   common_coeffs <- bind_rows(object@coefficients) %>%
     filter(duplicated(name)) %>%
-    filter(name != "(Intercept)")
+    filter(name != "(Intercept)") %>%
+    filter(!duplicated(name))
 
   ## FREQ SELECTED
   freq_coeff <- purrr::map(object@coefficients, 1) %>%
