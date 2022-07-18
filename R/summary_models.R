@@ -13,7 +13,7 @@
 #' @import ggplot2
 #' @importFrom magrittr %>%
 #' @importFrom purrr map keep
-#' @importFrom dplyr mutate filter arrange desc rename bind_rows
+#' @importFrom dplyr mutate filter arrange desc rename
 #' @importFrom clisymbols symbol
 #' @importFrom crayon blue red green
 summary_models <- function(object){
@@ -31,10 +31,8 @@ summary_models <- function(object){
     length()
 
   ## COMMON COEFFICIENTS
-  common_coeffs <- bind_rows(object@coefficients) %>%
-    filter(duplicated(name)) %>%
-    filter(name != "(Intercept)") %>%
-    filter(!duplicated(name))
+  common_coeffs <- Reduce(intersect, purrr::map(object@coefficients, 1))
+  common_coeffs <- common_coeffs[common_coeffs != "(Intercept)"]
 
   ## FREQ SELECTED
   freq_coeff <- purrr::map(object@coefficients, 1) %>%
@@ -90,8 +88,8 @@ summary_models <- function(object){
   n_models <- crayon::blue(clisymbols::symbol$bullet, "A total of", num_models, "models have been computed.")
   no_zero <- crayon::blue(clisymbols::symbol$bullet, nonzeromodels, "out of them with no null coefficients (", (nonzeromodels/num_models)*100, "%).")
 
-  if(nrow(common_coeffs) != 0){
-    common <- crayon::green(clisymbols::symbol$tick, nrow(common_coeffs), "common selected variables among all models!")
+  if(length(common_coeffs) != 0){
+    common <- crayon::green(clisymbols::symbol$tick, length(common_coeffs), "common selected variables among all models!")
   } else{
     common <- crayon::red(clisymbols::symbol$cross, "No common selected variables among all models...")
   }
