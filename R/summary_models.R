@@ -13,7 +13,7 @@
 #' @import ggplot2
 #' @importFrom magrittr %>%
 #' @importFrom purrr map keep
-#' @importFrom dplyr mutate filter arrange desc rename
+#' @importFrom dplyr mutate filter arrange desc rename bind_rows
 #' @importFrom clisymbols symbol
 #' @importFrom crayon blue red green
 summary_models <- function(object){
@@ -23,20 +23,19 @@ summary_models <- function(object){
   }
 
   ## LENGTH
-
   num_models <- object@length
 
   ## NON-ZERO MODELS
-
-  nonzeromodels <- purrr::map(object@coefficients, ~ nrow(.)) %>% purrr::keep(.>1) %>% length()
+  nonzeromodels <- purrr::map(object@coefficients, ~ nrow(.)) %>%
+    purrr::keep(. > 1) %>%
+    length()
 
   ## COMMON COEFFICIENTS
-
-  common_coeffs <- Reduce(intersect, purrr::map(object@coefficients, 1))
-  common_coeffs <- common_coeffs[common_coeffs != "(Intercept)"]
+  common_coeffs <- bind_rows(object@coefficients) %>%
+    filter(duplicated(name)) %>%
+    filter(name != "(Intercept)")
 
   ## FREQ SELECTED
-
   freq_coeff <- purrr::map(object@coefficients, 1) %>%
     unlist() %>%
     table() %>%
@@ -48,7 +47,6 @@ summary_models <- function(object){
     arrange(desc(Freq))
 
   ## PLOT FREQ SELECTED
-
   freq_plot <- ggplot(freq_coeff, aes(x = reorder(feature, Freq), y = Freq, fill = Freq)) +
     geom_bar(stat = 'identity') +
     coord_flip() +
@@ -59,14 +57,12 @@ summary_models <- function(object){
     scale_fill_continuous(type = "viridis")
 
   ## COEFF/LOOP
-
   coeffByloop <- purrr::map(object@coefficients, ~ nrow(.)) %>%
     unlist() %>%
     as.data.frame() %>%
     rename(counts = 1)
 
   ## PLOT COEFF/LOOP
-
   count_plot <- ggplot(coeffByloop, aes(reorder(rownames(coeffByloop), counts), counts, fill = counts)) +
     geom_bar(stat = "identity") +
     coord_flip() +
@@ -77,7 +73,6 @@ summary_models <- function(object){
     scale_fill_continuous(type = "viridis")
 
   ## DENSITY PLOT COEFF/LOOP
-
   density_count_plot <- ggplot(coeffByloop, aes(counts)) +
     geom_density() +
     ylab("Density") +
@@ -91,12 +86,11 @@ summary_models <- function(object){
               colour = "orange", angle = 90, check_overlap = T)
 
   ## SUMMARY MESSAGE
-
   n_models <- crayon::blue(clisymbols::symbol$bullet, "A total of", num_models, "models have been computed.")
   no_zero <- crayon::blue(clisymbols::symbol$bullet, nonzeromodels, "out of them with no null coefficients (", (nonzeromodels/num_models)*100, "%).")
 
-  if(length(common_coeffs) != 0){
-    common <- crayon::green(clisymbols::symbol$tick, "Great!", length(common_coeffs), "common selected variables among all models!")
+  if(nrow(common_coeffs) != 0){
+    common <- crayon::green(clisymbols::symbol$tick, nrow(common_coeffs), "common selected variables among all models!")
   } else{
     common <- crayon::red(clisymbols::symbol$cross, "No common selected variables among all models...")
   }
