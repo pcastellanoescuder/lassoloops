@@ -64,7 +64,6 @@ blasso <- function(x,
 
         not_equal <- length(unique(idx)) != 1
       }
-
     } else {
       new_matrix <- cbind(y, x)
     }
