@@ -55,11 +55,16 @@ blasso <- function(x,
   res <- foreach::foreach(i = 1:loops) %dopar% {
 
     ## BOOTSTRAP
-    if(bootstrap){
-      idx <- sample(1:n, replace = T)
+    if(bootstrap) {
+      not_equal <- FALSE
+      while (!not_equal) {
+        idx <- sample(1:n, replace = TRUE)
+        new_matrix <- cbind(y, x)
+        new_matrix <- new_matrix[idx ,]
 
-      new_matrix <- cbind(y, x)
-      new_matrix <- new_matrix[idx ,]
+        not_equal <- length(unique(idx)) != 1
+      }
+
     } else {
       new_matrix <- cbind(y, x)
     }
